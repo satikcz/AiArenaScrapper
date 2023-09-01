@@ -8,7 +8,11 @@ global using AIArenaScrapper.Filters;
 
 Console.WriteLine("Hello, commander!");
 
-var provider = new ArenaProvider("c04e854005a5a12a1a783430aea3898c2b0def85");
+// Read AIArena login token from environment variable to keep it away from this source code and prevent accidental pushing it :) 
+// But feel free to just hardcode it here for your usage.
+var aiArenaToken = Environment.GetEnvironmentVariable("aiarena_token") ?? string.Empty;
+
+var provider = new ArenaProvider(aiArenaToken);
 
 // Download all downloadable bots into bots folder
 /*var downloader = new DownloadableBotDownloader("bots", provider);
