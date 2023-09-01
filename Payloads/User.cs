@@ -14,7 +14,7 @@
 
         public override string ToString()
         {
-            return $"{id}{(is_staff ? "*" : "")} {first_name} '{username}' {last_name} {(is_active ? "" : "(inactive)")} {patreon_level}, joined {date_joined}";
+            return $"#{id}{(is_staff ? "*" : "")} {first_name} '{username}' {last_name} {(is_active ? "" : "(inactive)")} {patreon_level}, joined {date_joined}";
         }
     }
 }

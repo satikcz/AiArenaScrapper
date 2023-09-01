@@ -8,5 +8,10 @@
         public int game_mode { get; set; }
         public int[] competitions { get; set; }
         public bool enabled {get;set;}
+
+        public override string ToString()
+        {
+            return $"#{id} {name} {file}";
+        }
     }
 }

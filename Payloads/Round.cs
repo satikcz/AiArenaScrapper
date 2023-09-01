@@ -8,5 +8,10 @@
         public DateTime? started { get; set; }
         public DateTime? finished { get; set; }
         public bool complete { get; set; }
+
+        public override string ToString()
+        {
+            return $"#{id} round {number} in competition {competition}";
+        }
     }
 }

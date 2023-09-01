@@ -5,11 +5,16 @@ global using System.Net.Http.Headers;
 global using AIArenaScrapper;
 global using AIArenaScrapper.Payloads;
 global using AIArenaScrapper.Filters;
+global using AIArenaScrapper.Filters;
+global using System.Net;
+global using System.Web;
 
 Console.WriteLine("Hello, commander!");
 
 // Read AIArena login token from environment variable to keep it away from this source code and prevent accidental pushing it :) 
 // But feel free to just hardcode it here for your usage.
+// NOTE: if you update the env variable and you are using Visual Studio, you need to restart Visual Studio for it to register the variable was changed.
+// The token can be found in https://aiarena.net/profile/token/?
 var aiArenaToken = Environment.GetEnvironmentVariable("aiarena_token") ?? string.Empty;
 
 var provider = new ArenaProvider(aiArenaToken);

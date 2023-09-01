@@ -1,9 +1,8 @@
-﻿using AIArenaScrapper.Filters;
-using System.Net;
-using System.Web;
-
-namespace AIArenaScrapper
+﻿namespace AIArenaScrapper
 {
+    /// <summary>
+    /// Provides various data from the AIArena API.
+    /// </summary>
     public class ArenaProvider : IDisposable
     {
         private readonly AIArenaWebClient webClient;
@@ -19,6 +18,9 @@ namespace AIArenaScrapper
             webClient.Dispose();
         }
 
+        /// <summary>
+        /// Assembled request url with the filter part
+        /// </summary>
         private string AssembleUrl(string url, SearchFilter? filter)
         {
             if (filter is null)

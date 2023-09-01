@@ -16,5 +16,10 @@
         public bool use_bot_data { get; set; }
         public bool update_bot_data { get; set; }
         public bool match_log_has_been_cleaned { get; set; }
+
+        public override string ToString()
+        {
+            return $"#{id}, match {match}, bot {bot}, elo {elo_change}";
+        }
     }
 }

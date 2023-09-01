@@ -1,5 +1,8 @@
 ﻿namespace AIArenaScrapper
 {
+    /// <summary>
+    /// Class for calculating detailed bot statistics
+    /// </summary>
     public class DetailedBotStats
     {
         private string _botName;
@@ -7,6 +10,13 @@
         private ArenaProvider _arenaProvider;
         private int _roundCount;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="arenaProvider">Arena provider that is used to communicate with the AIArena API</param>
+        /// <param name="botName">Bot name to calculate the statistics for</param>
+        /// <param name="competitionName">Competition name to obtain statistics for. Can be null for automatic competition resolving.</param>
+        /// <param name="roundCount">Count of last rounds to obtain the statistics for</param>
         public DetailedBotStats(ArenaProvider arenaProvider, string botName, string? competitionName = null, int roundCount = 5) 
         { 
             _botName = botName;
@@ -26,21 +36,21 @@
             if (!string.IsNullOrEmpty(_competitionName))
                 competitionFilter = new NameFilter(_competitionName);
             else
-                // Try to find latest big competition not closed yet
+                // Try to find opened competition with interest 5
                 competitionFilter = new SearchFilter() { { "interest", "5" }, { "status", "open" } };
 
+            // Get competitions
             var competitions = await _arenaProvider.GetCompetitionsAsync(competitionFilter);
-
-            //var maps = await _arenaProvider.GetMapsAsync();
 
             if (!competitions.Any())
                 return;
 
+            // Get rounds belonging to the competition
             var roundsFilter = new SearchFilter() { { "competition", competitions.First().id.ToString() } };
-
             var roundCount = await _arenaProvider.GetRoundCountAsync(roundsFilter);
             var rounds = await _arenaProvider.GetRoundsAsync(roundsFilter + new OrderByFilter("number") + new PagedFilter(Math.Max(0, roundCount - _roundCount), _roundCount));
 
+            // Get matches and match participations for the rounds for given bot
             Dictionary<Match, MatchParticipation> matches = new();
             foreach (var round in rounds)
             {
@@ -53,6 +63,15 @@
                         matches.Add(match, participations.First());
                 }
             }
+
+            // Calculate and print stats
+            await PrintStatsAsync(matches);
+        }
+
+        private async Task PrintStatsAsync(Dictionary<Match, MatchParticipation> matches)
+        {
+            // Get maps for printing map names
+            var maps = await _arenaProvider.GetMapsAsync();
         }
     }
 }

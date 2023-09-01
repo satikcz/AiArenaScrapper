@@ -18,5 +18,10 @@
         public int rounds_per_cycle { get; set; }
         public int rounds_this_cycle { get; set; }
         public int n_placements { get; set; }
+
+        public override string ToString()
+        {
+            return $"#{id} {name} ({type}, {status}), {date_opened} to {date_closed}";
+        }
     }
 }

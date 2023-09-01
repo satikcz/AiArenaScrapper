@@ -8,5 +8,10 @@
         public int bot { get; set; }
         public string trophy_icon_name { get; set; }
         public string trophy_icon_image { get; set; }
+
+        public override string ToString()
+        {
+            return $"#{id} {name} {trophy_icon_name} img:{trophy_icon_image}";
+        }
     }
 }
