@@ -72,6 +72,16 @@
             return bot;
         }
 
+        public async Task<Bot?> GetBotAsync(string name, bool obtainUser = true)
+        {
+            var bot = (await GetList<Bot>($"bots/", new NameFilter(name))).FirstOrDefault();
+
+            if (bot is not null && obtainUser)
+                bot.User = await GetUserAsync(bot.user);
+
+            return bot;
+        }
+
         public async Task<int> GetUserCountAsync(SearchFilter? filter = null)
         {
             return await GetCount<User>("users/", filter);
