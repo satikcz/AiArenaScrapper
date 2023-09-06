@@ -18,7 +18,7 @@
         public float AvgFrameDuration => FrameDurations.Average();
 
         public int MatchCount => Wins+Draws+Losses;
-        public float Winrate => MatchCount == 0 ? 1.0f : Wins/MatchCount;
+        public float Winrate => (MatchCount == 0 ? 1.0f : (float)Wins/MatchCount) * 100;
 
         public void AddMatch(MatchSummary match)
         {
@@ -38,7 +38,7 @@
 
         public override string ToString()
         {
-            return $"{Winrate:000.##} {Wins}-{Losses} ({Draws})\tElo: {$"{EloChange:+###;-###;0}".PadRight(8)}\t{AvgFrameDuration:F1}ms\t{TimeSpan.FromSeconds(AvgGameLength / 22.4f):hh\\:mm\\:ss\\.f}";
+            return $"{(int)Winrate}%\t{$"{Wins}-{Losses} ({Draws})".PadRight(10)}\tElo: {$"{EloChange:+###;-###;0}".PadRight(8)}\t{AvgFrameDuration:F1}ms\t{TimeSpan.FromSeconds(AvgGameLength / 22.4f):hh\\:mm\\:ss\\.f}";
         }
     }
 }

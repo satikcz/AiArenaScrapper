@@ -149,6 +149,7 @@ namespace AIArenaScrapper
                 }
             }
 
+            Console.WriteLine($"Stats for bot {_botName} in {competitions.First().name} ({_roundCount} rounds)");
             var stats = new Stats(matches);
             stats.PrintStatsToConsole();
         }
